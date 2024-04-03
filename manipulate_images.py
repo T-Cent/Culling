@@ -62,7 +62,7 @@ class manipulateImage:
 
     # * had to run only once
     def handle_noise_textures(self, dir_target: str, dir_source: str) -> None:
-        os.mkdir(dir_target)
+        os.mkdir(dir_source)
         for i, textures in enumerate(glob.glob(dir_source + "Untitled.*.png")):
             y = Image.open(textures)
             y = y.resize(size=self.x.size)
