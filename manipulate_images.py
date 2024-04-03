@@ -44,7 +44,7 @@ class manipulateImage:
             return x+max-1
 
     def blur(self, x: Image = None, use_noise: bool = False) -> Image:
-        x = self.x
+        x = x or self.x
         b = x.filter(ImageFilter.BoxBlur(random.randint(3, 7)))
         if use_noise:
             noise_texture = Image.open(r"Noise Textures (L)\\" + random.choice(os.listdir("Noise Textures (L)")))
@@ -52,7 +52,7 @@ class manipulateImage:
         return b
 
     def exposure(self, x: Image = None, use_noise: bool = False) -> Image:
-        x = self.x
+        x = x or self.x
         exposure = ImageEnhance.Brightness(x)
         e = exposure.enhance(self.excluded_random(0.3, 1.7))
         if use_noise:
@@ -70,12 +70,14 @@ class manipulateImage:
             t = dir_target + r"\Texture" + str(i) + ".png"
             y.save(t)
 
-d = manipulateImage("D:\Wallpapers\RE4wB6A.jpg")
-e = d.exposure()
-e.show()
-e = d.exposure(use_noise=True)
-e.show()
-e = d.blur()
-e.show()
-e = d.blur(use_noise=True)
-e.show()
+if __name__ == '__main__':
+    d = manipulateImage("D:\Wallpapers\RE4wB6A.jpg")
+    q = Image.open("D:\Wallpapers\RE4wppZ.jpg")
+    e = d.exposure(q)
+    e.show()
+    e = d.exposure(q, use_noise=True)
+    e.show()
+    e = d.blur(q)
+    e.show()
+    e = d.blur(q, use_noise=True)
+    e.show()
