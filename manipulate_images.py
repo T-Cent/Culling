@@ -31,25 +31,31 @@ def RGBAtoL(x: Image) -> Image:
 x = Image.open("D:\Wallpapers\RE4wB6C.jpg")
 black = Image.new(mode="RGB", size=x.size)
 
-def blur(x: Image, use_noise: bool = False) -> Image:
-    if not use_noise:
-        x = x.filter(ImageFilter.BoxBlur(random.randint(3, 7)))
+def excluded_random(min: int, max: int) -> float:
+    '''
+    gives a random number between min and max but does not give a number between min+0.5 and max-0.5
+    so we do not get similar looking images
+    '''
+    x = random.random()
+    if x <= 0.5:
+        return x+min
     else:
+        return x+max-1
+
+def blur(x: Image, use_noise: bool = False) -> Image:
+    b = x.filter(ImageFilter.BoxBlur(random.randint(3, 7)))
+    if use_noise:
         noise_texture = Image.open(r"Noise Textures (L)\\" + random.choice(os.listdir("Noise Textures (L)")))
-        x = Image.composite(x, black, noise_texture)
-        x = x.filter(ImageFilter.BoxBlur(random.randint(3, 7)))
-    return x
+        b = Image.composite(x, b, noise_texture)
+    return b
 
 def exposure(x: Image, use_noise: bool = False) -> Image:
-    if not use_noise:
-        exposure = ImageEnhance.Brightness(x)
-        x = exposure.enhance(random.randint(1, 3)/2)
-    else:
+    exposure = ImageEnhance.Brightness(x)
+    e = exposure.enhance(excluded_random(0.3, 1.7))
+    if use_noise:
         noise_texture = Image.open(r"Noise Textures (L)\\" + random.choice(os.listdir("Noise Textures (L)")))
-        x = Image.composite(x, black, noise_texture)
-        exposure = ImageEnhance.Brightness(x)
-        x = exposure.enhance(random.randint(1, 3)/2)
-    return x
+        e = Image.composite(x, e, noise_texture)
+    return e
 
 #* had to run only once
 # os.mkdir(r"C:\Users\lenovo\Desktop\code\cunning\Noise Textures (L)")
