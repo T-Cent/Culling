@@ -27,8 +27,8 @@ pipenv run python culling.py
 $delete = Read-Host "Do you wish to delete the downloaded virtual environment? (yes/no) "
 if ($delete -eq "yes")
 {
-	del .venv
+	rm -r .venv
 	Write-Host "Virtual environment deleted."
-	pip uninstall pipenv
+	pip uninstall pipenv -yq
 	Write-Host "pipenv deleted."
 }
