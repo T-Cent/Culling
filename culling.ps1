@@ -1,3 +1,11 @@
+IF (pip show pipenv)
+{
+	Write-Host "pipenv found"
+} ELSE {
+	Write-Host "installing pipenv"
+	pip install pipenv
+}
+
 IF (dir .venv -erroraction 'silentlycontinue')
 {
 	Write-Host "Virtual environment found."
@@ -21,4 +29,6 @@ if ($delete -eq "yes")
 {
 	del .venv
 	Write-Host "Virtual environment deleted."
+	pip uninstall pipenv
+	Write-Host "pipenv deleted."
 }
