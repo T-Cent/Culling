@@ -4,28 +4,10 @@ import time
 print("Thank you for taking the time, starting review")
 print("If the output matches the image, you can press enter, else, you can type anything")
 
-# try:
 import torch
 from torchvision import transforms
 from PIL import Image
 import pygetwindow as gw
-# except:
-#     print("not all dependecies were found, installing them in a virtual environment")
-#     time.sleep(0.5)
-#     command = fr"cd {os.getcwd()} && python -m venv .venv && .venv\Scrips\activate.bat && pip install -r requirements.txt"
-#     os.system(command)
-#     time.sleep(0.5)
-#     print("clearing the screen")
-#     time.sleep(0.8)
-#     os.system("cls")
-#     print("requirements installed, proceeding")
-#     import torch
-#     from torchvision import transforms
-#     from PIL import Image
-#     import pygetwindow as gw
-
-#with open("NUL", "w") as nul:
-#    subprocess.run(requirements, stdout=nul, stderr=nul)
 
 model_path = "modelv2"
 
@@ -67,10 +49,9 @@ def get_predictions(model, img_path: str):
         outputs = model(img)
         _, preds = torch.max(outputs, 1)
     os.remove(img_path_no_ext + "_temp") if not is_jpg else ...
+    print(outputs)
     return class_names[preds[0]], window
 
-#print(gw.getAllTitles())
-#time.sleep(100)
 culling_model = torch.load(model_path, map_location=torch.device(device))
 terminal = gw.getWindowsWithTitle("Terminal")[0]
 pos = terminal.topleft
@@ -84,7 +65,6 @@ for x in os.listdir(os.getcwd()):
     if out == "not an image":
         continue
     (attribute, window) = out
-    #print(gw.getAllTitles())
     terminal.activate()
     ans = input(f"is this image {attribute}? ") or "yes"
     window.close()
@@ -94,9 +74,3 @@ for x in os.listdir(os.getcwd()):
 terminal.moveTo(*pos)
 terminal.resizeTo(*size)
 print(f"Thanks once again, the review is done, our model was able to correctly identify {correct} images out of {total}")
-# delete = input("Do you wish to uninstall the downloaded dependencies? (yes/no) ")
-# if delete == "yes":
-#     os.remove(fr"{os.getcwd()}\.venv")
-# deactivate_env = os.getcwd() + r"\.venv\Scripts\deactivate.bat"
-# print(deactivate_env)
-# os.system(deactivate_env)
