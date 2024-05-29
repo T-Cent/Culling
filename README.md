@@ -11,7 +11,8 @@ In the terminal
 
     >cd culling
     >powerhsell
+    >pwsh.exe -ExecutionPolicy RemoteSigned
     >.\culling.ps1
-*if in powershell, you do not have to change the terminal* <br><br>
-The script will now install `pipenv` and create a virtual environemt to install `torch, torchvision, pillow, pygetwindow` <br>
-At the end, you can chose to delete these files as they take up a lot of space. <br>
+*The third command is for when you are experiencing issues running the script as Microsoft does not allow you to run scripts by default as a safety precaution; here, I am changing the parameter for just this session. Hence, your setting would change to default when this season is terminated. You can learn more about execution policies here: https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.4* <br><br>
+The script will now install `pipenv` and create a virtual environment to install `torch, torchvision, pillow, pygetwindow` <br>
+In the end, you can choose to delete these files as they take up a lot of space. <br>
