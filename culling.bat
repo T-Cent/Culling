@@ -1,7 +1,6 @@
 @echo off
 
-python3 -m venv .venv
 pipenv sync
-pipenv run python culling.py here
+pipenv run python culling.py j1407b.jpg
 
 @echo on
